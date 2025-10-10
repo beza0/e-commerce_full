@@ -2,60 +2,51 @@ import React, { useContext } from "react";
 import "./ProductItem.css";
 import { CartContext } from "../../context/CartProvider";
 
-const ProductItem = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
+const ProductItem = ({ productItem }) => {
+  const { cartItems, addToCart } = useContext(CartContext);
+
+  const filteredCart = cartItems.find(
+    (cartItem) => cartItem.id === productItem.id
+  );
 
   return (
     <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img src={product.img.singleImage} alt="" className="img1" />
-          <img src={product.img.thumbs[1]} alt="" className="img2" />
+          <img
+            src={productItem?.img?.singleImage}
+            alt={productItem?.name}
+            className="img1"
+          />
+          <img
+            src={productItem?.img?.thumbs?.[1]}
+            alt={productItem?.name}
+            className="img2"
+          />
         </a>
       </div>
-
       <div className="product-info">
         <a href="#" className="product-title">
-          {product.name}
+          {productItem?.name}
         </a>
-
         <ul className="product-star">
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-half"></i>
-          </li>
+          <li><i className="bi bi-star-fill"></i></li>
+          <li><i className="bi bi-star-fill"></i></li>
+          <li><i className="bi bi-star-fill"></i></li>
+          <li><i className="bi bi-star-fill"></i></li>
         </ul>
-
-        <div className="product-prices">
-          <strong className="new-price">
-            ${product.price.newPrice.toFixed(2)}
-          </strong>
-          <span className="old-price">
-            ${product.price.oldPrice.toFixed(2)}
-          </span>
-        </div>
-
-        <span className="product-discount">{product.discount}</span>
-
-        <div className="product-links">
-          <button className="add-to-cart" onClick={() => addToCart(product)}>
+        <div className="product-buttons">
+          <button
+            className="add-to-cart"
+            onClick={() => addToCart(productItem)}
+            disabled={!!filteredCart}
+          >
             <i className="bi bi-basket-fill"></i>
           </button>
           <button>
             <i className="bi bi-heart-fill"></i>
           </button>
-          <a href="#" className="product-link" data-id={product.id}>
+          <a href="#" className="product-link" data-id={productItem.id}>
             <i className="bi bi-eye-fill"></i>
           </a>
           <a href="#">
