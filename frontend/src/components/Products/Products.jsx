@@ -3,7 +3,7 @@ import "./Products.css";
 import ProductItem from "./ProductItem";
 import productData from "../../data.json";
 import Slider from "react-slick";
-import { Autoplay } from "@glidejs/glide/dist/glide.modular.esm.js";
+import { CartContext } from "../../context/CartProvider";
 
 function NextButton(props) {
   const { onClick } = props;
@@ -25,7 +25,7 @@ function PrevButton(props) {
 
 const Products = () => {
   const [products] = useState(productData);
-  
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -58,7 +58,7 @@ const Products = () => {
         <div className="product-wrapper product-carousel">
           <Slider {...sliderSettings}>
             {products.map((product) => (
-              <ProductItem key={product.id} product={product} />
+              <ProductItem product={product} key={product.id} />
             ))}
           </Slider>
         </div>

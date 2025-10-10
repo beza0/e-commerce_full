@@ -1,6 +1,13 @@
 import React from "react";
 import "./Header.css";
+import { useContext } from "react";
+import { CartContext } from "../../../context/CartProvider";
+
+
+
 const Header = ({ setSearchModal }) => {
+
+const {cartItems} = useContext(CartContext);
   return (
     <header>
       <div className="global-notification">
@@ -201,7 +208,7 @@ const Header = ({ setSearchModal }) => {
                 <div className="header-cart">
                   <a href="cart.html" className="header-cart-link">
                     <i className="bi bi-bag"></i>
-                    <span className="header-cart-count">0</span>
+                    <span className="header-cart-count">{cartItems.length}</span>
                   </a>
                 </div>
               </div>

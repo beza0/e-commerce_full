@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ProductItem.css";
-const ProductItem = () => {
+import { CartContext } from "../../context/CartProvider";
+
+const ProductItem = ({ product }) => {
+  const { addToCart } = useContext(CartContext);
+
   return (
     <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img src="img/products/product1/1.png" alt="" className="img1" />
-          <img src="img/products/product1/2.png" alt="" className="img2" />
+          <img src={product.img.singleImage} alt="" className="img1" />
+          <img src={product.img.thumbs[1]} alt="" className="img2" />
         </a>
       </div>
+
       <div className="product-info">
         <a href="#" className="product-title">
-          Analogue Resin Strap
+          {product.name}
         </a>
+
         <ul className="product-star">
           <li>
             <i className="bi bi-star-fill"></i>
@@ -30,19 +36,26 @@ const ProductItem = () => {
             <i className="bi bi-star-half"></i>
           </li>
         </ul>
+
         <div className="product-prices">
-          <strong className="new-price">$108.00</strong>
-          <span className="old-price">$165.00</span>
+          <strong className="new-price">
+            ${product.price.newPrice.toFixed(2)}
+          </strong>
+          <span className="old-price">
+            ${product.price.oldPrice.toFixed(2)}
+          </span>
         </div>
-        <span className="product-discount">-22%</span>
+
+        <span className="product-discount">{product.discount}</span>
+
         <div className="product-links">
-          <button className="add-to-cart" data-id="1">
+          <button className="add-to-cart" onClick={() => addToCart(product)}>
             <i className="bi bi-basket-fill"></i>
           </button>
           <button>
             <i className="bi bi-heart-fill"></i>
           </button>
-          <a href="#" className="product-link" data-id="1">
+          <a href="#" className="product-link" data-id={product.id}>
             <i className="bi bi-eye-fill"></i>
           </a>
           <a href="#">
