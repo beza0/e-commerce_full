@@ -1,31 +1,32 @@
-import React from "react";
-import "./ProductDetails.css";
-import BreadCrumb from "./BreadCrumb/BreadCrumb";
-import Info from "./Info/Info";
-import Tabs from "./Tabs/Tabs";
+import Breadcrumb from "./Breadcrumb/Breadcrumb";
 import Gallery from "./Gallery/Gallery";
-                                        
+import PropTypes from "prop-types";
+import Info from "./Info/Info";
+import "./ProductDetails.css";
+import Tabs from "./Tabs/Tabs";
 
-const ProductDetails = () => {
+const ProductDetails = ({ singleProduct, setSingleProduct }) => {
   return (
-    <>
-      <section className="single-product">
-        <div className="container">
-          <div className="single-product-wrapper">
-            <BreadCrumb />
-            <div className="single-content">
-              <main className="site-main">
-              <Gallery />
-              <Info />
-              </main>
-            </div>
-
-          <Tabs />                      
+    <section className="single-product">
+      <div className="container">
+        <div className="single-product-wrapper">
+          <Breadcrumb />
+          <div className="single-content">
+            <main className="site-main">
+              <Gallery singleProduct={singleProduct} />
+              <Info singleProduct={singleProduct} />
+            </main>
           </div>
+          <Tabs singleProduct={singleProduct} setSingleProduct={setSingleProduct} />
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
 export default ProductDetails;
+
+ProductDetails.propTypes = {
+  singleProduct: PropTypes.object,
+  setSingleProduct: PropTypes.func,
+};

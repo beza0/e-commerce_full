@@ -13,7 +13,7 @@ import CampaignSingle from '../components/CampaignSingle/CampaignSingle'
 const HomePage = () => {
   return (
      <>
-   
+  
       <Slider />
       <Categories />
       <Products />

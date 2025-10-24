@@ -45,7 +45,7 @@ const Gallery = () => {
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-        <img src={activeImage} id="single-image" alt="product" />
+        <img src={`/${activeImage}`} id="single-image" alt="product" />
       </div>
 
       <div className="product-thumb">
@@ -53,7 +53,7 @@ const Gallery = () => {
           {productsData[0].img.thumbs.map((itemImg, index) => (
             <div key={index} onClick={() => setActiveImage(itemImg)}>
               <img
-                src={itemImg}
+                src={`/${itemImg}`}
                 alt={`thumb-${index}`}
                 className={`img-fluid ${itemImg === activeImage ? 'active' : ''}`}
               />

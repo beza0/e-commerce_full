@@ -1,36 +1,28 @@
-import Header from "./components/Layout/Header/Header";
-import Footer from "./components/Layout/Footer/Footer";
-import Policy from "./components/Layout/Policy/Policy";
-import Slider from "./components/Slider/Slider";
-import Products from "./components/Products/Products";
-import Categories from "./components/Categories/Categories";
-import Campaigns from "./components/Campaigns/Campaigns";
-import Blogs from "./components/Blogs/Blogs";
-import Brands from "./components/Brands/Brands";
-import CampaignSingle from "./components/CampaignSingle/CampaignSingle"; 
-import "./App.css";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ContactPage from "./pages/ContactPage";
 import AuthPage from "./pages/AuthPage";
 import CartPage from "./pages/CartPage";
-import Cart from "./components/Cart/Cart";
 import BlogPage from "./pages/BlogPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 function App() {
   return (
-    <>
-     {/* <HomePage /> */}
-     {/* <ShopPage /> */}
-    {/* <ContactPage /> */}
-    {/* <AuthPage /> */}
-   <CartPage />
-   {/* <BlogPage /> */}
-   {/* <BlogDetailsPage />   */}
-   {/* <ProductDetailsPage /> */}
-     </>
+    
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogDetailsPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
+      </Routes>
+    
   );
-} 
+}
 
 export default App;

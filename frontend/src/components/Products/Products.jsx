@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import "./Products.css";
+import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
-import productData from "../../data.json";
 import Slider from "react-slick";
-import { CartContext } from "../../context/CartProvider";
+import PropTypes from "prop-types";
+import "./Products.css";
+import { message } from "antd";
 
-function NextButton(props) {
-  const { onClick } = props;
+function NextBtn({ onClick }) {
   return (
     <button className="glide__arrow glide__arrow--right" onClick={onClick}>
       <i className="bi bi-chevron-right"></i>
@@ -14,8 +13,11 @@ function NextButton(props) {
   );
 }
 
-function PrevButton(props) {
-  const { onClick } = props;
+NextBtn.propTypes = {
+  onClick: PropTypes.func,
+};
+
+function PrevBtn({ onClick }) {
   return (
     <button className="glide__arrow glide__arrow--left" onClick={onClick}>
       <i className="bi bi-chevron-left"></i>
@@ -23,27 +25,54 @@ function PrevButton(props) {
   );
 }
 
+PrevBtn.propTypes = {
+  onClick: PropTypes.func,
+};
+
 const Products = () => {
-  const [products] = useState(productData);
+  const [products, setProducts] = useState([]);
+
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/products`);
+
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        } else {
+          message.error("Veri getirme başarısız.");
+        }
+      } catch (error) {
+        console.log("Veri hatası:", error);
+      }
+    };
+    fetchProducts();
+  }, [apiUrl]);
 
   const sliderSettings = {
     dots: false,
     infinite: true,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    nextArrow: <NextButton />,
-    prevArrow: <PrevButton />,
+    nextArrow: <NextBtn />,
+    prevArrow: <PrevBtn />,
+    autoplaySpeed: 3000,
     autoplay: true,
-    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 992,
-        settings: { slidesToShow: 2 },
+        settings: {
+          slidesToShow: 2,
+        },
       },
       {
         breakpoint: 520,
-        settings: { slidesToShow: 1 },
+        settings: {
+          slidesToShow: 1,
+        },
       },
     ],
   };
@@ -53,12 +82,12 @@ const Products = () => {
       <div className="container">
         <div className="section-title">
           <h2>Featured Products</h2>
-          <p>Summer Collection New Modern Design</p>
+          <p>Summer Collection New Morden Design</p>
         </div>
         <div className="product-wrapper product-carousel">
           <Slider {...sliderSettings}>
             {products.map((product) => (
-              <ProductItem product={product} key={product.id} />
+              <ProductItem productItem={product} key={product._id} />
             ))}
           </Slider>
         </div>
